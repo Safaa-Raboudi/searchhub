@@ -6,6 +6,9 @@ doctrine:
         # either here or in the DATABASE_URL env var (see .env file)
         server_version: '15'
         use_savepoints: true
+        types:
+            document_id: App\Document\Infrastructure\Persistence\Doctrine\Type\DocumentIdType
+            document_status: App\Document\Infrastructure\Persistence\Doctrine\Type\DocumentStatusType
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
@@ -16,6 +19,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+            DocumentDoctrine:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Document/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Document\Domain'
+                alias: DocumentDoctrine
 
 when@test:
     doctrine:

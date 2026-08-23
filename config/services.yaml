@@ -19,6 +19,18 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/Document/Infrastructure/Persistence/Doctrine/Type/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Doctrine DBAL types aren't looked up through the container (they're
+    # instantiated by DBAL's own TypeRegistry from doctrine.dbal.types
+    # config), so they're excluded above rather than registered as services.
+
+    # Public so integration tests can fetch it directly by interface name
+    # via the test container; production code still only ever receives it
+    # through constructor autowiring, same as any private service.
+    App\Document\Domain\DocumentRepositoryInterface:
+        alias: App\Document\Infrastructure\Persistence\Doctrine\DoctrineDocumentRepository
+        public: true
