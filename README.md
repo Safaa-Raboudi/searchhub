@@ -1,14 +1,63 @@
 # SearchHub
 
-A backend service for managing documents and providing full-text search, built with Symfony, Doctrine, RabbitMQ and OpenSearch. This is a learning/portfolio project: it starts on Symfony 5.4 / PHP 8.0 and will later be migrated incrementally to Symfony 6.4 and 7.4.
+SearchHub is a backend-focused document search platform built with Symfony.
 
-## Status
+It is designed to provide a centralized API for ingesting, managing, indexing,
+and searching documents from multiple external systems.
 
-Phase 0 — project initialization. No business features yet.
+The project focuses on clean architecture, asynchronous processing, search
+capabilities, and maintainable backend development.
 
-## Getting started
+## Tech Stack
 
-Everything runs in Docker (PHP 8.0-fpm, nginx, PostgreSQL 15). No local PHP install is required.
+**PHP · Symfony · PostgreSQL · RabbitMQ · OpenSearch · Docker · PHPUnit**
+
+## Architecture
+
+SearchHub follows a DDD-inspired modular architecture with a clear separation
+between Domain, Application, and Infrastructure layers.
+
+External systems interact with SearchHub through REST APIs. Documents can be
+stored in PostgreSQL and asynchronously indexed in OpenSearch through RabbitMQ
+for efficient full-text search.
+
+## Key Features
+
+- REST API for document ingestion and management
+- Document metadata management
+- Full-text search with OpenSearch
+- Search filtering and querying
+- Asynchronous document indexing with RabbitMQ
+- PostgreSQL persistence
+- Modular and maintainable architecture
+- Automated testing with PHPUnit
+- Dockerized development environment
+
+## Architecture Overview
+
+```text
+External Systems
+       │
+       ▼
+   REST API
+       │
+       ▼
+Symfony Application
+   │           │
+   ▼           ▼
+PostgreSQL   RabbitMQ
+                │
+                ▼
+             Worker
+                │
+                ▼
+            OpenSearch
+```
+
+## Getting Started
+
+Everything runs in Docker (PHP-FPM, nginx, PostgreSQL). No local PHP install is
+required.
 
 ```bash
 docker compose build
@@ -18,7 +67,7 @@ docker compose exec php bin/console about
 
 The app is served at http://localhost:8080.
 
-## Tests and static analysis
+## Tests and Static Analysis
 
 ```bash
 docker compose exec php vendor/bin/phpunit
