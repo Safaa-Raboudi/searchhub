@@ -1,4 +1,9 @@
 
+###> claude code ###
+/.claude/
+/CLAUDE.md
+###< claude code ###
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
