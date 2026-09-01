@@ -34,3 +34,7 @@ services:
     App\Document\Domain\DocumentRepositoryInterface:
         alias: App\Document\Infrastructure\Persistence\Doctrine\DoctrineDocumentRepository
         public: true
+
+    App\Document\Domain\DocumentListInterface:
+        alias: App\Document\Infrastructure\Persistence\Doctrine\DoctrineDocumentRepository
+        public: true

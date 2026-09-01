@@ -11,4 +11,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# This base image only has one shared conf.d (no separate cli/fpm scan
+# dirs), so this applies to both SAPIs. The growing codebase's static
+# analysis (composer, PHPStan, PHPUnit) needs more than the default
+# 128M; 512M is still a reasonable request-memory bound for php-fpm too.
+RUN echo "memory_limit = 512M" > /usr/local/etc/php/conf.d/memory-limit.ini
+
 WORKDIR /var/www/html

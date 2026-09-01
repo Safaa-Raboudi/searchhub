@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Document\Application\Create;
 
+use App\Document\Application\DocumentView;
 use App\Document\Domain\Document;
 use App\Document\Domain\DocumentId;
 use App\Document\Domain\DocumentRepositoryInterface;
@@ -33,7 +34,7 @@ final class CreateDocumentHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(CreateDocumentCommand $command): CreateDocumentResult
+    public function __invoke(CreateDocumentCommand $command): DocumentView
     {
         $document = Document::create(
             DocumentId::generate(),
@@ -45,6 +46,6 @@ final class CreateDocumentHandler
 
         $this->repository->save($document);
 
-        return new CreateDocumentResult($document->id(), $document->status(), $document->createdAt());
+        return DocumentView::fromDocument($document);
     }
 }

@@ -1,0 +1,3 @@
+document_controllers:
+    resource: ../../src/Document/Infrastructure/Http/Controller/
+    type: annotation
